@@ -1,0 +1,84 @@
+#!/bin/sh
+
+
+# 注意 git hook 默认运行位置在 client 文件夹下
+config() 
+{
+    val=$(( grep -E "^$1=" ./Tools/GitHooks/HookConfig.conf 2>/dev/null || echo "$1=__DEFAULT__" ) | head -n 1 | cut -d '=' -f 2-)
+
+    if [[ $val == __DEFAULT__ ]]
+    then
+        case $1 in
+            projectsetting)
+                echo 1
+                ;;
+        esac
+    else
+        echo $val
+    fi
+}
+
+check()
+{
+    if git diff --name-status --cached | grep -q "$1" ;
+    then
+        echo 1
+    else
+        echo 0
+    fi
+}
+
+check_added_line()
+{
+    if git diff --cached | grep ^+ | grep -q "$1" ;
+    then
+        # 当检测到不合法的值时，会重定向到 GitDiff.txt 文件中
+        git diff --cached >> ./Temp/GitDiff.txt
+        echo 1
+    else
+        echo 0
+    fi
+}
+
+echo 1>&2
+
+# 每次清空 diff 文件
+echo "" > ./Temp/GitDiff.txt
+
+# 此条规则默认开启
+if [ $(check "HookConfig.conf") -eq 1 ]
+then
+    echo "ERROR: can't change HookConfig.conf" >&2
+    exit 1
+fi
+
+if [ $(config projectsetting) -eq 1 ]
+then
+    if [ $(check "ProjectSettings.asset") -eq 1 ]
+    then
+        echo "ERROR: can't change ProjectSettings.asset" >&2
+        exit 1
+    fi
+fi
+
+if [ $(config linq) -eq 1 ]
+then
+    if [ $(check_added_line "using System.Linq") -eq 1 ]
+    then
+        echo "ERROR: can't use System.Linq, diff log check Temp/GitDiff.txt file" >&2
+        exit 1
+    fi
+fi
+
+if [ $(config addressable) -eq 1  ]
+then
+	if [ $(check "AddressableAssetSettings.asset") -eq 1 ]
+	then
+		echo "ERROR: can't change AddressableAssetSettings.asset file!" >&2
+		exit 1
+	fi
+fi
+
+# accept
+exit 0
+

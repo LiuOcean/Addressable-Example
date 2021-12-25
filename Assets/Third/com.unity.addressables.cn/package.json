@@ -1,0 +1,52 @@
+{
+  "name": "com.unity.addressables.cn",
+  "displayName": "Addressables.CN",
+  "version": "1.18.11",
+  "unity": "2018.4",
+  "description": "相对于原版Addressables package, 新增了对通过Addressables打包的asset进行加密的功能.\n 使用手册: https://ucgbucket.unitychina.cn/AssetStreaming/AddressablesCN.pdf",
+  "keywords": [
+    "asset",
+    "resources",
+    "bundle",
+    "bundles",
+    "assetbundles"
+  ],
+  "dependencies": {
+    "com.unity.scriptablebuildpipeline": "1.19.1",
+    "com.unity.modules.assetbundle": "1.0.0",
+    "com.unity.modules.imageconversion": "1.0.0",
+    "com.unity.modules.jsonserialize": "1.0.0",
+    "com.unity.modules.unitywebrequest": "1.0.0",
+    "com.unity.modules.unitywebrequestassetbundle": "1.0.0"
+  },
+  "repository": {
+    "url": "git@github.cds.internal.unity3d.com:justinz/Addressables.git",
+    "type": "git",
+    "revision": "004529cf837d98768e6210e6a57e0136c3d3211c"
+  },
+  "upmCi": {
+    "footprint": "d8b0a710af0508b6089ede43798a58a8840c5902"
+  },
+  "samples": [
+    {
+      "displayName": "Addressables Utility",
+      "description": "This sample contains a set of utility functions for Addressables.",
+      "path": "Samples~/AddressablesUtility"
+    },
+    {
+      "displayName": "Disable AssetImport on Build",
+      "description": "A script that disables asset importing during a player build.  This improves build performance since AssetBundles are copied into StreamingAssets at build time.",
+      "path": "Samples~/DisableAssetImportOnBuild"
+    },
+    {
+      "displayName": "Import Groups Tool",
+      "description": "A tool that imports group assets (for example from a custom package) to the current project.",
+      "path": "Samples~/ImportExistingGroup"
+    },
+    {
+      "displayName": "Prefab Spawner",
+      "description": "A basic script that instantiates and destroys a prefab AssetReference.",
+      "path": "Samples~/PrefabSpawner"
+    }
+  ]
+}
