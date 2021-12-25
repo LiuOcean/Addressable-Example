@@ -35,7 +35,7 @@
 
 ## 源码修改
 
-![](pic/16404103831136.jpg)
+![image](https://github.com/LiuOcean/Addressable-Example/blob/main/Pic/16404103831136.jpg)
 
 
 在 `AddressableAssetsSettingsGroupEditor.cs` `193` 行，增加了一个新的工具，用于强制刷新所有 `group` 中 `Missing Reference` 的问题，具体代码自行查看即可
